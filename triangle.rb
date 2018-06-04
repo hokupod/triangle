@@ -19,7 +19,11 @@ class Triangle
 
   def isosceles?
     return false unless [side_a, side_b, side_c].uniq.count == 2
-    return false if sides.min * 2 != sides.max
+    duplicate_side = sides.combination(2).each { |combination|
+      break combination.first if combination.first == combination.last
+    }
+    non_duplicate_side = sides.select { |side| duplicate_side != side }.first
+    return false if duplicate_side * 2 == non_duplicate_side
     true
   end
 
@@ -31,4 +35,10 @@ class Triangle
     end
     true
   end
+end
+
+if __FILE__ == $0
+  input = ARGV.join.split(',')
+  triangle = Triangle.new *input
+  puts triangle.shape
 end

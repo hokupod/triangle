@@ -49,7 +49,7 @@ describe Triangle do
       end
     end
 
-    context '正三角形' do
+    describe '正三角形' do
       context '3辺が同じ値' do
         let(:sides) { [1, 1, 1] }
         it { is_expected.to eq '正三角形ですね！' }
@@ -60,13 +60,17 @@ describe Triangle do
       end
     end
 
-    context '三角形ではない' do
+    describe '三角形ではない' do
       context '2辺を足した値とその他の1辺の値が一致する' do
         let(:sides) { [1, 2, 3] }
         it { is_expected.to eq '三角形じゃないです＞＜' }
       end
-      context '2辺を足した値とその他の1辺の値が一致しない' do
+      context '2辺を足した値よりその他の1辺の値が大きい' do
         let(:sides) { [1, 2, 4] }
+        it { is_expected.to eq '三角形じゃないです＞＜' }
+      end
+      context '2辺を足した値よりその他の1辺の値が小さい' do
+        let(:sides) { [1, 3, 3] }
         it { is_expected.not_to eq '三角形じゃないです＞＜' }
       end
     end

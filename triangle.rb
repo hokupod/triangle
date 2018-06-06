@@ -23,17 +23,13 @@ class Triangle
       break combination.first if combination.first == combination.last
     }
     non_duplicate_side = sides.select { |side| duplicate_side != side }.first
-    return false if duplicate_side * 2 == non_duplicate_side
-    true
+    duplicate_side * 2 > non_duplicate_side
   end
 
   def unequal?
     return false unless [side_a, side_b, side_c].uniq.count == 3
     sum_combinations = sides.combination(2).to_a.map { |combination| combination.inject(0, &:+) }
-    sum_combinations.each do |sum_combination|
-      return false if sides.include?(sum_combination)
-    end
-    true
+    sum_combinations.all? { |sum_combination| sum_combination > sides.max }
   end
 end
 
